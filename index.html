@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테니스 경기 관리 방 입장</title>
+    <script>
+        function launchApp() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var roomId = urlParams.get('roomId');
+            var pass = urlParams.get('pass');
+            
+            if(roomId && pass) {
+                // 2026-05-08 수정 내용: 패밀리앱(테니스 매니저) 전용 커스텀 스킴(tennismanager://) 및 패키지명 적용
+                var intentUrl = "intent://join?roomId=" + roomId + "&pass=" + pass + "#Intent;scheme=tennismanager;package=com.ddongmoo.tennismanager;end";
+                
+                window.location.href = intentUrl;
+                
+                // 2초 뒤 앱 실행 실패 시 스토어로 이동
+                var fallbackTimer = setTimeout(function() {
+                    if (!document.hidden) {
+                        window.location.href = "market://details?id=com.ddongmoo.tennismanager";
+                    }
+                }, 2000);
+                
+                // 앱이 실행되어 백그라운드로 가면 타이머 해제
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        clearTimeout(fallbackTimer);
+                    }
+                });
+            } else {
+                alert("잘못된 입장 정보입니다.");
+            }
+        }
+        window.onload = function() {
+            launchApp();
+        };
+    </script>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+    <h2>🎾 테니스 경기 관리</h2>
+    <p>앱을 실행 중입니다.<br><br>만약 화면이 자동으로 넘어가지 않으면<br>아래 버튼을 눌러주세요.</p>
+    <button class="btn" onclick="launchApp()">앱으로 입장하기</button>
+</body>
+</html>

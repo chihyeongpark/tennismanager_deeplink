@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ddongmoo.tennismanager",
+      "sha256_cert_fingerprints": [
+        "BF:C3:87:79:65:55:5B:58:9C:72:36:F6:32:B3:F0:53:71:6A:74:E8:B8:87:53:22:22:F9:43:32:E9:46:A7:1C"
+      ]
+    }
+  }
+]
